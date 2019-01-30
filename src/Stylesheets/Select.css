@@ -1,0 +1,22 @@
+.Select {
+    border: black 5px solid;
+    float: left;
+    margin-left: 5px;
+    height: 75%;
+    width: 40%;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+}
+
+.selectPlayer {
+    border-radius: 2px;
+    display: block;
+    margin: 10px auto auto;
+    width: 50%;
+    height: 6%;
+    background-color: black;
+    color: white;
+}

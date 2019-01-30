@@ -1,0 +1,10 @@
+.Field {
+    border: 5px solid green;
+    background-color: green;
+    width: 40%;
+    margin-right: 5%;
+    height: 75%;
+    float: left;
+    background-image: url(../img/terrain.jpg);
+    background-size: cover;
+}

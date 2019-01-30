@@ -1,28 +1,66 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './Stylesheets/App.css';
+import Select from './Components/Select';
+import Field from './Components/Field';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+    constructor(props){
+        super(props);
+
+        let initPlayers = new Array(11).fill(null);
+
+        this.state = {
+            players : initPlayers,
+            lastPositionClicked: null
+        }
+    }
+
+    onPositionClicked = (position) => {
+        this.setState({
+            lastPositionClicked: position
+        });
+    };
+
+    playerSelected = (position, data) => {
+        let error = false;
+        this.state.players.map((player) => {
+           if(player != null && player.player_name === data.player_name){
+               console.error('Joueur déjà présent');
+               error = true;
+           }
+        });
+
+        if(!error) {
+            this.setState({
+                lastPositionClicked: null
+            });
+            let newPlayers = this.state.players.slice();
+            newPlayers[position] = data;
+            this.setState({
+                players: newPlayers
+            });
+        }
+    }
+
+    render() {
+        return (
+            <div className="App">
+
+                <Field
+                    players={this.state.players}
+                    onPositionClicked={this.onPositionClicked}
+                />
+
+                {this.state.lastPositionClicked !== null &&
+                    <Select
+                        position={this.state.lastPositionClicked}
+                        playerSelected={this.playerSelected}
+                    />
+                }
+            </div>
+        );
+    }
 }
 
 export default App;
