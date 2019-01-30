@@ -41,7 +41,7 @@ class App extends Component {
                 players: newPlayers
             });
         }
-    }
+    };
 
     render() {
         return (
