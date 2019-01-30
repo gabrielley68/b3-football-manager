@@ -18,6 +18,9 @@ class App extends Component {
 
     onPositionClicked = (position) => {
         this.setState({
+            lastPositionClicked: null
+        });
+        this.setState({
             lastPositionClicked: position
         });
     };
@@ -43,10 +46,10 @@ class App extends Component {
         }
     };
 
+
     render() {
         return (
             <div className="App">
-
                 <Field
                     players={this.state.players}
                     onPositionClicked={this.onPositionClicked}

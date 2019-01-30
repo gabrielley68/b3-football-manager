@@ -11,6 +11,7 @@ class Select extends Component {
         };
 
         this.timeOut = null;
+        this.setTypePlayer();
     }
 
     onInput(e){
@@ -29,9 +30,11 @@ class Select extends Component {
                     rawData.json().then(value => {
                         let results = [];
                         if (value.result) {
-                            value.result.map((player, index) => {
-                                if (index < 10) {
-                                    results = [...results, player];
+                            value.result.map((player) => {
+                                if (results.length < 10) {
+                                    if(player.player_type === this.playerType || this.playerType === '') {
+                                        results = [...results, player];
+                                    }
                                 }
                             });
                             this.setState({
@@ -51,6 +54,31 @@ class Select extends Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.position !== this.props.position){
+            this.setState({
+                result: []
+            });
+            this.setTypePlayer();
+        }
+    }
+
+    setTypePlayer(){
+        this.playerType = '';
+        if(this.props.position === 0){
+            this.playerType = "Goalkeepers";
+        }
+        else if(this.props.position >= 1 && this.props.position <= 4){
+            this.playerType = "Defenders";
+        }
+        else if(this.props.position >= 5 && this.props.position <= 7){
+            this.playerType = "Midfielders";
+        }
+        else if(this.props.position >= 8 && this.props.position <= 10){
+            this.playerType="Forwards";
+        }
+        else this.playerType="";
+    }
 
 
     render() {
